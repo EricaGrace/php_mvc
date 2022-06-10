@@ -876,9 +876,9 @@ Nos routes sont à présent enregistrées automatiquement au bootstrap de notre 
 
 La déclaration des routes, quant à elle, se trouve directement "sur" nos contrôleurs. C'est plus pratique car nous regroupons les informations d'un contrôleur à un seul endroit.
 
-//Générateur de fausses données et création de commande
+### Générateur de fausses données et création de commande
 
-** Faker
+- Faker
 Pour installer Faker, il faut entrer la commande composer require fzaninotto/faker
 
 
