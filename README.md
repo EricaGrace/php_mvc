@@ -875,3 +875,74 @@ $router->registerRoutes();
 Nos routes sont à présent enregistrées automatiquement au bootstrap de notre application.
 
 La déclaration des routes, quant à elle, se trouve directement "sur" nos contrôleurs. C'est plus pratique car nous regroupons les informations d'un contrôleur à un seul endroit.
+
+//Générateur de fausses données et création de commande
+
+** Faker
+Pour installer Faker, il faut entrer la commande composer require fzaninotto/faker
+
+
+Pour générer des données fictives en base de données, créer dans le dossier console/src un fichier UserFaker.php 
+
+````php
+ public function __construct()
+    {
+        $this->faker = Faker\Factory::create('fr_FR');
+    }
+
+    Représente le construction qui instancie la variable $faker. 
+
+    ```
+    php 
+    public function createUsers()
+    {
+
+        $users=array();
+
+      for($i=0 ; $i<15 ; $i++){
+           $users = new user();
+           $users[$i]->setName($this->faker->name);
+           $users[$i]->setFirstName($this->faker->firstname);
+           $users[$i]->setUserName($this->faker->username);
+           $users[$i]->setPassword($this->faker->password);  
+           $users[$i]->setEmail($this->faker->email); 
+           $users[$i]->setBirthdate($this->faker->birthdate); 
+      }
+      
+      return $users;
+
+    }
+````
+  Est la fonction qui s'occupe de créer les données dans la base. Ici, j'ai choisi de créer 15 nouveaux utilisateurs. Les données requises comme le nom, le prénom... seront donc créées pour chaque nouvel utilisateur. Les données seront stockées dans un tableau, et le programme doit retourner le tableau avec les données générées.
+
+  ***Symfony console command.
+
+  Dans le dossier console/src , on crée un nouveau fichier : CommandUser.php
+
+  Ce fichier nous permettra de définir la commande qui sera excutée pour la création des données en base.
+```php
+
+  public function configure () {
+    $this->setName('add-users') // entrer le nom de la commande
+         ->setDescription('Generate users in DB') // insérer une description de l'action de la commande 
+         ->setHelp('This command allows you to generate new users in the data base ')
+         ->addArgument('i', InputArgument::REQUIRED, 'Create users'); // ajouter un argument pour l'exécution. L'argument peut être obligatoire ou facultatif. La valeur InputArgument::REQUIRED rend l'argument obligatoire.
+}
+
+protected function execute(InputInterface $input, OutputInterface $output) // Cette fonction se charge d'exécuter la commande et de renvoyer le résultat.L'InputInterface est utilisée pour obtenir les entrées des utilisateurs et OutputInterface pour afficher la sortie.
+
+{
+    $i = $input->getArgument('i');  //On récupère l'argument avec getArgument() de l'entrée et l'écrivons sur la console avec writeln().
+    if($i>=15){
+
+        $output->writeln('Error, data not avalaible ');
+        return Command::FAILURE;
+    }
+    else{
+        $output->writeln('Data created: '.$i);
+        return Command::SUCCESS;
+    }
+    }
+  
+
+    
