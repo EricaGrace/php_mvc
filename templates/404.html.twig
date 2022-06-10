@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }}</title>
+</head>
+<body>
+    <div class='wrapper'>
+        <h2>Un petit formulaire</h2>
+        <p>Renseignez les informations</p>
+        <form action= '<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?> method='post'>
+            <div class='form-group'>
+                <label>Votre nom</label>
+                <input type='text' name='username' class='form-control <?php echo (!empty($username_err)) ? ‘is-invalid’ : ‘’; ?>' value='<?php echo $username; ?>'>
+                <span class='invalid-feedback'> </span>
+            </div>
+            <div class='form-group'>
+                <label>Votre prénom</label>
+                <input type='text' name='username' class='form-control <?php echo (!empty($username_err)) ? ‘is-invalid’ : ‘’; ?>' value='<?php echo $username; ?>'>
+                <span class='invalid-feedback'> </span>
+            </div>
+            <div class='form-group'>
+                <label>Votre âge</label>
+                <input type='number' name='age' class='form-control <?php echo (!empty($age_err)) ? ‘is-invalid’ : ‘’; ?>' value='<?php echo $age; ?>'>
+                <span class='invalid-feedback'><?php echo $age_err; ?></span>
+            </div>
+            <div class='form-group'>
+                <label for='maritale'>Votre situation maritale: </label>
+                <label>Marié</label>
+                <input type='radio' name='situation' value='Marié' checked='checked'>
+                <label>Veuf</label>
+                <input type='radio' name='situation' value='Veuf'>
+                <label>Célibataire</label>
+                <input type='radio' name='situation' value='Célibataire'>
+            </div>
+            <div class='form-group'>
+                <div id='checkboxes'>
+                    <label for='interets'>Vos centres d’intérêt :</label>
+                    <label for=''>Internet</label>
+                    <input type='checkbox' name='interests[]' value='Internet'>
+                    <label for=''>Micro-informatique</label>
+                    <input type='checkbox' name='interests[]' value='Micro-Informatique'>
+                    <label for=''>Jeux Vidéo</label>
+                    <input type='checkbox' name='interests[]' value='Jeux-Vidéos'>
+                </div>
+            </div>
+            <div class='form-group'>
+                <input type='submit'  value='Envoyer'>
+                <input type='reset'  value='Recommencer'>
+            </div>
+            <p>Vous n'avez pas de compte? <a href='../Exercice 3/login.php'>Créez un compte ici</a>.</p>
+        </form>
+    </div>
+</body>
+</html>
